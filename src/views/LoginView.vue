@@ -75,8 +75,8 @@ export default {
             this.axios.post(url,data)
            .then(response => {
                 this.$notify({ type: "success", title:"Mensaje", text: "¡¡ Bienvenido !!" })
-                this.$store.dispatch('login', response.data.user.name)
-                this.$router.push('/home')
+                this.$store.dispatch('login', response.data)
+                this.$router.push('/groups')
             })
             .catch(error => {
                 
