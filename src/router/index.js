@@ -1,16 +1,24 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import LoginView from '../views/LoginView.vue'
+import RegisterView from '../views/RegisterView.vue'
+import Store from '@/store/index'
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'login',
+    component: LoginView
   },
   {
-    path: '/about',
-    name: 'about',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/register',
+    name: 'register',
+    component: RegisterView
+  },
+  {
+    path: '/home',
+    name: 'home',
+    meta: { requiredAuth: true },
+    component: () => import(/* webpackChunkName: "about" */ '../views/HomeView.vue')
   }
 ]
 
@@ -21,15 +29,13 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   
-  if (to.matched.some((record) => record.meta.requiresAuth))
+  if (to.matched.some((record) => record.meta.requiredAuth))
   {  
       
-      if (Store.state.auth){
+      if (Store.state.auth)
           next();
-      } 
-      else{
-          next({ name: "login" });
-      }
+      else
+        next({ name: "login" });
   }
   else {
       next();

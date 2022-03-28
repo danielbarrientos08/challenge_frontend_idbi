@@ -1,13 +1,15 @@
 import { createStore } from 'vuex'
 
-export default createStore({
+const Store = createStore({
   state: {
     username  : null,
     auth      : false,
     api_token : null,
   },
   getters: {
-   
+    user: (state) => {
+      return state.user
+    } 
   },
   mutations: {
     login(state, username) {
@@ -33,3 +35,5 @@ export default createStore({
   modules: {
   }
 })
+
+export default Store
