@@ -3,8 +3,10 @@ import { createStore } from 'vuex'
 const Store = createStore({
   state: {
     username  : null,
+    user : null,
     auth      : false,
     api_token : null,
+    token_type : null,
   },
   getters: {
     user: (state) => {
@@ -12,20 +14,25 @@ const Store = createStore({
     } 
   },
   mutations: {
-    login(state, username) {
+    login(state, payload) {
         state.auth = true;
-        state.username = username;
+        state.username = payload.user.name;
+        state.api_token = payload.api_token;
+        state.user = payload.user;
+        state.token_type = payload.token_type;
     },
 
     logout(state) {
         state.auth = false;
         state.username = null;
+        state.api_token = null;
+        state.token_type = null;
     }
   },
   actions: {
 
-    login({ commit }, username) {
-      commit("login", username);
+    login({ commit }, payload) {
+      commit("login", payload);
     },
     
     logout({ commit }) {
