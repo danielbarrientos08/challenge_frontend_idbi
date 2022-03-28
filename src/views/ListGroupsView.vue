@@ -15,7 +15,7 @@
       </div>
       <div class="row ">
 
-        <div  v-for=" group in listGroups"  class="col-md-3"  v-bind:key="group.id">
+        <div  v-for=" group in listGroups"  class="col-sm-3 col-md-4"  v-bind:key="group.id">
             <div  class="card my-4 " style="width: 18rem;" >
                 <img src="https://desarrolloweb.com/storage/tag_images/actual/XLzFK4Nkfc15A4Qn6emJcyP6DvpvdbD46S2mLfbI.png" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -29,10 +29,10 @@
                 <div class="card-body">
                     <div class="d-grid gap-1">
                         <template v-if="group.group_users.length >0 ">
-                            <button type="submit" class="btn  btn-success mt-1">Ir al grupo</button>
+                            <button type="button" class="btn  btn-success mt-1">Ir al grupo</button>
                         </template>
                         <template v-else>
-                           <button type="submit"  class="btn  btn-dark mt-1">Unirte al grupo</button>
+                           <button type="button"  @click="joinGroup(group.id,group.name)" class="btn  btn-dark mt-1">Unirte al grupo</button>
                         </template>
                     </div> 
                 </div>
@@ -80,16 +80,41 @@ export default {
 
             await this.axios.get( url )
            .then(response => {
-                this.$notify({ type: "success", title:"Mensaje", text: "datos obtenidos" })
-                console.log(response.data);
+              
                 this.listGroups = response.data.groups.data
                 // this.$router.push('/')
             })
             .catch(error => {
                 
-              
                 this.$notify({ type: "error", title:"Mensaje", text: "Sucedio un error, inténtelo otra vez" });
-                
+            })
+            .finally(() => {
+                 window.mitt.emit('loader', {'eventContent': false})
+            })
+        },
+
+        async joinGroup(group_id,group_name)
+        {
+            window.mitt.emit('loader', {'eventContent': true})
+
+            let url = this.$uri+'/api/groups/'+group_id+'/join'
+          
+            this.axios.defaults.headers.common['Authorization'] = `Bearer ${this.api_token}`;
+
+            await this.axios.post( url )
+           .then(response => {
+                this.$notify({ type: "success", title:"Mensaje", text: "Se ha unido al grupo :"+group_name })
+                this.getListGroups();
+              
+            })
+            .catch(error => {
+                if(error.response.status == 422){
+                  
+                     this.$notify({ type: "warn", title:"Mensaje", text: "Ya se encuentra registrado en el grupo." });
+                }
+                else{
+                     this.$notify({ type: "error", title:"Mensaje", text: "Sucedio un error, inténtelo otra vez" });
+                }
                
             })
             .finally(() => {
