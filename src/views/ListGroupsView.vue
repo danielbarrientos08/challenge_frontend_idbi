@@ -29,7 +29,8 @@
                 <div class="card-body">
                     <div class="d-grid gap-1">
                         <template v-if="group.group_users.length >0 ">
-                            <button type="button" class="btn  btn-success mt-1">Ir al grupo</button>
+                            <!-- <button type="button"  class="btn  btn-success mt-1">Ir al grupo</button> -->
+                             <router-link  class="btn  btn-success mt-1" :to="{ name: 'group', params: { id: group.id }}">Ir al grupo</router-link>
                         </template>
                         <template v-else>
                            <button type="button"  @click="joinGroup(group.id,group.name)" class="btn  btn-dark mt-1">Unirte al grupo</button>
@@ -82,7 +83,7 @@ export default {
            .then(response => {
               
                 this.listGroups = response.data.groups.data
-                // this.$router.push('/')
+                // this.$route.push('/')
             })
             .catch(error => {
                 
