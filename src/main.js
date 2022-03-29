@@ -21,7 +21,7 @@ app.mount('#app')
 //variables globales
 const uri ={
     local : 'http://localhost:8000',
-    production : 'https://tkambio.rumisofperu.com',
+    production : 'https://backend.rumisofperu.com',
 }
 
 //Nombre de la app

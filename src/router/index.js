@@ -23,23 +23,12 @@ const routes = [
     component: GroupView
   },
   {
-    path: '/group/:id/register-note',
-    name: 'register-note',
-      meta: { requiredAuth: true },
-    component: GroupView
-  },
-  {
     path: '/groups',
     name: 'groups',
     meta: { requiredAuth: true },
     component: ListGroupsView
-  },
-  {
-    path: '/home',
-    name: 'home',
-    meta: { requiredAuth: true },
-    component: () => import(/* webpackChunkName: "about" */ '../views/HomeView.vue')
   }
+
 ]
 
 const router = createRouter({

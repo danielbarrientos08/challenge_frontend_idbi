@@ -13,12 +13,12 @@
 
                     <div class="mb-3 text-start">
                         <label for="email" class="form-label ">Titulo</label>
-                        <input type="text" v-model="form.title" class="form-control" id="title" maxlength="100"    placeholder="nombre y apellido">
+                        <input type="text" v-model="form.title" class="form-control" id="title" maxlength="100"   required placeholder="nombre y apellido">
                         <small v-if="validationMessages.title != '' " v-text="validationMessages.title" class="text-danger"></small>
                     </div>
                     <div class="mb-3 text-start">
                         <label for="email" class="form-label ">Descripcion</label>
-                        <textarea name="" id="textarea" class="form-control" v-model="form.description" cols="30"  rows="10"></textarea>
+                        <textarea name="" id="textarea" class="form-control" v-model="form.description" cols="30"  required rows="10"></textarea>
                         <small v-if="validationMessages.description != '' " v-text="validationMessages.description" class="text-danger"></small>
                     </div>
                     

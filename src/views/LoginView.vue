@@ -23,7 +23,7 @@
                     
                         <div class="mb-3 text-start">
                             <label for="email" class="form-label ">Email</label>
-                            <input type="text" v-model="form.email" class="form-control" id="email"  required placeholder="ejemplo@mail.com">
+                            <input type="email" v-model="form.email" class="form-control" id="email"  required placeholder="ejemplo@mail.com">
                         </div>
                         <div class="mb-3 text-start">
                             <label for="password" class="form-label ">Contraseña</label>
