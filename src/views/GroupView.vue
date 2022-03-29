@@ -8,20 +8,13 @@
                     <div class="col-md-6 px-0">
                     <h1 class="display-4 fst-italic">{{group.name}}</h1>
                     <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
-                    <button class="btn btn-lg btn-outline-success">Crear una nota</button>
-                    </div>
+                    <button class="btn btn-lg btn-outline-success"  @click="showModal" >Crear una nota</button>
+                    <router-link  class="btn  btn-lg   btn-outline-light mx-1" :to="{ name: 'groups' }">Volver</router-link>                    </div>
                 </div>
             </div>
-         
-        <!-- <div class="  offset-md-4 col-md-4  offset-md-4 ">
-          <div class="text-center">
-              <h2>Grupo </h2>
-          </div>
-        </div>     -->
-        <!-- <div class="col-md-4">
-          
-        </div>     -->
-      </div>
+        
+        </div>     
+      
       <div class="row ">
 
         <div  v-for=" note in listNotes"  class="col-sm-12 col-md-12 mb-4"  v-bind:key="note.id">
@@ -46,12 +39,17 @@
 
       </div>
     </div>
+
+     <modal-note-component ref="ModalNoteComponent" />
 </template>
 
 <script>
     import mitt from 'mitt'
 	window.mitt = window.mitt || new mitt()
     import { mapState } from 'vuex'
+
+    import ModalNoteComponent    from '@/components/ModalNoteComponent'  
+
 export default {
 
     name: 'GroupView',
@@ -69,21 +67,31 @@ export default {
     },
     computed: mapState(['username','api_token','token_type']),
     components:{
-       
+         ModalNoteComponent,
     },
     created() {
       
     },
     mounted() {
-          this.getGroup();
+        this.getGroup();
+        let self = this
+        window.mitt.on('refreshGroup', (evt) => {
+                self.getGroup();
+        })
     },
     methods: {
         
+        showModal(){
+            this.$refs.ModalNoteComponent.showModal(); 
+        },
+        redirectBack(){
+            this.$router.push('/groups')
+        },
         async getGroup ()
         {     
            window.mitt.emit('loader', {'eventContent': true})
 
-            // console.log( this.$route)
+           
             let group_id = this.$route.params.id;
 
             let url = this.$uri+'/api/groups/'+group_id+'/notes'
@@ -95,8 +103,8 @@ export default {
               
                 this.listNotes = response.data.notes.data
                 this.group = response.data.group
-                console.log(response.data)
-                // this.$route.push('/')
+              
+               
             })
             .catch(error => {
                 

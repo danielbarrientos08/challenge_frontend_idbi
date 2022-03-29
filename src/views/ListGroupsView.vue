@@ -15,12 +15,12 @@
       </div>
       <div class="row ">
 
-        <div  v-for=" group in listGroups"  class="col-sm-3 col-md-4"  v-bind:key="group.id">
+        <div  v-for=" group in listGroups"  class="col-sm-3 col-md-3"  v-bind:key="group.id">
             <div  class="card my-4 " style="width: 18rem;" >
-                <img src="https://desarrolloweb.com/storage/tag_images/actual/XLzFK4Nkfc15A4Qn6emJcyP6DvpvdbD46S2mLfbI.png" class="card-img-top" alt="...">
+                <img src="https://lenguajejs.com/vuejs/componentes/que-es-un-componente/frameworks-javascript.png" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{group.name}}</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione sed necessitatibus officia libero, possimus dolorem ipsum eligendi maiores quia pariatur odit nobis! Nam animi ut maxime molestias? Vero, consequatur.</p>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item text-muted">Miembros: {{group.group_users_count}}</li>
